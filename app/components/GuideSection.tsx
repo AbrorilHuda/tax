@@ -42,29 +42,29 @@ nano a0-identitas.tex
 
 const GuideSection = () => {
   return (
-    <section id="panduan" className="py-24 px-6 border-t border-border">
+    <section id="panduan" className="py-16 sm:py-24 px-4 sm:px-6 border-t border-border">
       <div className="mx-auto max-w-4xl">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-3xl font-bold text-foreground">
+        <div className="text-center mb-10 sm:mb-16 space-y-3 sm:space-y-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
             Cara Penggunaan
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground">
             Empat langkah sederhana untuk semua template TAX.
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {steps.map((step) => (
-            <div key={step.num} className="flex gap-6">
-              <div className="shrink flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary font-bold text-lg font-mono">
+            <div key={step.num} className="flex gap-4 sm:gap-6">
+              <div className="shrink-0 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-primary/10 text-primary font-bold text-base sm:text-lg font-mono">
                 {step.num}
               </div>
-              <div className="flex-1 space-y-3">
-                <h3 className="text-lg font-semibold text-foreground">
+              <div className="flex-1 min-w-0 space-y-2 sm:space-y-3">
+                <h3 className="text-base sm:text-lg font-semibold text-foreground">
                   {step.title}
                 </h3>
-                <div className="code-block p-4">
-                  <pre className="text-sm leading-relaxed overflow-x-auto">
+                <div className="code-block p-3 sm:p-4">
+                  <pre className="text-xs sm:text-sm leading-relaxed overflow-x-auto">
                     <code className="text-muted-foreground">{step.code}</code>
                   </pre>
                 </div>
