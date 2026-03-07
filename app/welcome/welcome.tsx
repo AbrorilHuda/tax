@@ -5,10 +5,12 @@ import TemplatesSection from "~/components/TemplatesSection";
 import PreviewSection from "~/components/PreviewSection";
 import GuideSection from "~/components/GuideSection";
 import Footer from "~/components/Footer";
+import { ScrollProgress } from "~/components/ScrollProgress";
 
 export default function Welcome() {
   return (
     <div className="min-h-screen bg-background">
+      <ScrollProgress />
       <Navbar />
       <HeroSection />
       <FeaturesSection />

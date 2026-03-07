@@ -12,7 +12,7 @@
 @theme {
   /* Font Families */
   --font-sans:
-    "Space Grotesk", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono:
     "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
@@ -121,13 +121,25 @@
     @apply border-border outline-ring/50;
   }
 
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
   }
 
-  html {
-    @apply font-sans;
+  ::selection {
+    background-color: hsl(270 95% 65% / 0.25);
+    color: hsl(0 0% 100%);
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(270 95% 65% / 0.8);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
   code,
@@ -139,16 +151,78 @@
 }
 
 /* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes badge-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 hsl(270 95% 65% / 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px hsl(270 95% 65% / 0);
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* ============================================
    UTILITIES (Dari v3)
    ============================================ */
 @layer utilities {
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(
-      135deg,
-      hsl(270 95% 70%),
-      hsl(200 95% 60%)
-    );
+    background-image: linear-gradient(135deg,
+        hsl(270 95% 70%),
+        hsl(200 95% 60%));
   }
 
   /* Glow Effects */
@@ -164,11 +238,9 @@
 
   /* Hero Gradient Background */
   .hero-gradient {
-    background: radial-gradient(
-      ellipse 80% 50% at 50% -20%,
-      hsl(270 95% 65% / 0.15),
-      transparent
-    );
+    background: radial-gradient(ellipse 80% 50% at 50% -20%,
+        hsl(270 95% 65% / 0.15),
+        transparent);
   }
 
   /* Code Block Styling */
@@ -204,20 +276,7 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: hsl(270 95% 65% / 0.5);
   }
-  .glow-border {
-    box-shadow:
-      0 0 0 1px hsl(270 95% 65% / 0.3),
-      0 0 20px -5px hsl(270 95% 65% / 0.4);
-  }
 
-  .text-gradient {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(
-      135deg,
-      hsl(270 95% 70%),
-      hsl(200 95% 60%)
-    );
-  }
 
   .nav-link-underline {
     position: relative;

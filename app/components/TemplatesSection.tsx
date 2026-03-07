@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { Download, Github, Clock, FileText, GraduationCap, BookOpen } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Badge } from "~/components/ui/badge";
+import { useInView } from "~/lib/use-in-view";
 
 const templates = [
   {
@@ -27,6 +28,8 @@ const templates = [
 ];
 
 const TemplatesSection = () => {
+  const { ref, inView } = useInView<HTMLDivElement>();
+
   return (
     <section id="templates" className="py-24 px-6 border-t border-border">
       <div className="mx-auto max-w-6xl">
@@ -40,21 +43,30 @@ const TemplatesSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {templates.map((t) => (
+        <div ref={ref} className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {templates.map((t, i) => (
             <div
               key={t.title}
-              className={`rounded-xl border bg-card p-8 space-y-5 transition-all ${t.status === "available"
-                ? "border-primary/30 glow-soft"
-                : "border-border opacity-75"
+              className={`rounded-xl border bg-card p-8 space-y-5 transition-all duration-300
+                hover:-translate-y-1.5 hover:shadow-xl ${t.status === "available"
+                  ? "border-primary/30 glow-soft hover:border-primary/50 hover:shadow-primary/10"
+                  : "border-border opacity-75 hover:opacity-90"
                 }`}
+              style={{
+                opacity: inView ? (t.status === "available" ? 1 : 0.75) : 0,
+                transform: inView ? "translateY(0)" : "translateY(24px)",
+                transition: `opacity 0.5s ease ${i * 120}ms, transform 0.5s ease ${i * 120}ms, border-color 0.2s, box-shadow 0.2s, translate 0.2s`,
+              }}
             >
               <div className="flex items-start justify-between">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
                   <t.icon className="h-6 w-6 text-primary" />
                 </div>
                 {t.status === "available" ? (
-                  <Badge className="bg-primary/15 text-primary border-primary/30 hover:bg-primary/20">
+                  <Badge
+                    className="bg-primary/15 text-primary border-primary/30 hover:bg-primary/20"
+                    style={{ animation: "badge-pulse 2.5s ease-in-out infinite" }}
+                  >
                     Tersedia
                   </Badge>
                 ) : (
@@ -83,11 +95,11 @@ const TemplatesSection = () => {
                 ))}
               </div>
 
-              {t.status === "available" ? (
+              {t.status === "available" && t.downloadUrl && t.repoUrl ? (
                 <div className="space-y-3 pt-2">
                   <div className="flex gap-3">
                     <a
-                      href={t.downloadUrl!}
+                      href={t.downloadUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -97,7 +109,7 @@ const TemplatesSection = () => {
                       </Button>
                     </a>
                     <a
-                      href={t.repoUrl!}
+                      href={t.repoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

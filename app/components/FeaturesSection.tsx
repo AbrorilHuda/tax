@@ -6,6 +6,7 @@ import {
   Layers,
   Zap,
 } from "lucide-react";
+import { useInView } from "~/lib/use-in-view";
 
 const features = [
   {
@@ -41,6 +42,8 @@ const features = [
 ];
 
 const FeaturesSection = () => {
+  const { ref, inView } = useInView<HTMLDivElement>();
+
   return (
     <section id="fitur" className="py-24 px-6">
       <div className="mx-auto max-w-6xl">
@@ -52,13 +55,20 @@ const FeaturesSection = () => {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((f) => (
+        <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features.map((f, i) => (
             <div
               key={f.title}
-              className="rounded-xl border border-border bg-card p-6 space-y-3 hover:border-primary/40 transition-colors"
+              className="rounded-xl border border-border bg-card p-6 space-y-3
+                         hover:border-primary/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5
+                         transition-all duration-300"
+              style={{
+                opacity: inView ? 1 : 0,
+                transform: inView ? "translateY(0)" : "translateY(24px)",
+                transition: `opacity 0.5s ease ${i * 80}ms, transform 0.5s ease ${i * 80}ms, border-color 0.2s, box-shadow 0.2s, translate 0.2s`,
+              }}
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/20">
                 <f.icon className="h-5 w-5 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground">{f.title}</h3>

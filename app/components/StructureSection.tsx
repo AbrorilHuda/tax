@@ -51,7 +51,7 @@ const StructureSection = () => {
           <div className="flex items-center gap-3 px-5 py-3 bg-secondary/50">
             <FolderOpen className="h-4 w-4 text-primary" />
             <span className="text-sm font-medium text-foreground font-mono">
-              Template-laporan-kerja-praktik-TI-unira/
+              Template-laporan-latex/
             </span>
           </div>
           {files.map((f) => (

@@ -1,227 +1,31 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import {
-    Monitor,
-    Apple,
-    Terminal,
-    Globe,
-    Copy,
-    Check,
-    ArrowLeft,
-    ExternalLink,
-} from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { Button } from "~/components/ui/button";
+import { CodeBlock } from "~/components/CodeBlock";
+import { osOptions, guide, type OS } from "~/lib/guide-data";
 import type { Route } from "./+types/panduan.install";
 
 export function meta({ }: Route.MetaArgs) {
+    const title = "Panduan Instalasi — TAX";
+    const description =
+        "Panduan instalasi dan penggunaan template LaTeX TAX untuk Windows, macOS, Linux, dan Overleaf.";
+    const url = "https://tax.dcnunira.dev/panduan/install";
+    const image = "https://tax.dcnunira.dev/og-image.png";
+
     return [
-        { title: "Panduan Instalasi — TAX" },
-        {
-            name: "description",
-            content:
-                "Panduan instalasi dan penggunaan template LaTeX TAX untuk Windows, macOS, Linux, dan Overleaf.",
-        },
+        { title },
+        { name: "description", content: description },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: url },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:image", content: image },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:site_name", content: "TAX UNIRA" },
+        { property: "og:locale", content: "id_ID" },
     ];
-}
-
-type OS = "windows" | "macos" | "linux" | "overleaf";
-
-const osOptions: { id: OS; label: string; icon: React.ElementType }[] = [
-    { id: "windows", label: "Windows", icon: Monitor },
-    { id: "macos", label: "macOS", icon: Apple },
-    { id: "linux", label: "Linux", icon: Terminal },
-    { id: "overleaf", label: "Overleaf", icon: Globe },
-];
-
-interface Step {
-    title: string;
-    commands?: string[];
-    notes?: string;
-    link?: { label: string; url: string };
-}
-
-const guide: Record<OS, { editor: string; steps: Step[] }> = {
-    windows: {
-        editor: "MikTeX + TeXstudio",
-        steps: [
-            {
-                title: "Install MikTeX",
-                notes:
-                    'Pilih "For All Users" saat instalasi dan aktifkan opsi "Always install missing packages" agar package LaTeX terunduh otomatis.',
-                link: { label: "Download MikTeX →", url: "https://miktex.org/download" },
-            },
-            {
-                title: "Install TeXstudio",
-                notes: "TeXstudio adalah editor LaTeX yang mudah digunakan di Windows.",
-                link: {
-                    label: "Download TeXstudio →",
-                    url: "https://www.texstudio.org/",
-                },
-            },
-            {
-                title: "Update MikTeX",
-                notes:
-                    "Buka MikTeX Console dari Start Menu, lalu klik Check for updates dan install semua update yang tersedia.",
-            },
-            {
-                title: "Clone atau Download Template",
-                commands: [
-                    "git clone <url-repository-template>",
-                    "cd <nama-folder-template>",
-                ],
-                notes: "Atau download file ZIP langsung dari halaman GitHub.",
-            },
-            {
-                title: "Buka & Compile",
-                notes:
-                    "Buka file laporan.tex di TeXstudio, lalu klik tombol Build & View (F5) untuk menghasilkan laporan.pdf.",
-            },
-        ],
-    },
-    macos: {
-        editor: "MacTeX + VS Code",
-        steps: [
-            {
-                title: "Install MacTeX",
-                commands: ["brew install --cask mactex"],
-                notes: "Atau download installer manual dari situs MacTeX.",
-                link: {
-                    label: "Download MacTeX →",
-                    url: "https://www.tug.org/mactex/",
-                },
-            },
-            {
-                title: "Install VS Code",
-                link: {
-                    label: "Download VS Code →",
-                    url: "https://code.visualstudio.com/",
-                },
-            },
-            {
-                title: "Install Ekstensi LaTeX Workshop",
-                notes:
-                    "Di VS Code, buka Extensions (Cmd+Shift+X), cari LaTeX Workshop, lalu klik Install.",
-            },
-            {
-                title: "Clone Template",
-                commands: [
-                    "git clone <url-repository-template>",
-                    "cd <nama-folder-template>",
-                ],
-            },
-            {
-                title: "Compile",
-                commands: ["cd Project/", "./compile.sh"],
-                notes: "Atau gunakan shortcut Ctrl+Alt+B di dalam VS Code.",
-            },
-        ],
-    },
-    linux: {
-        editor: "TeX Live + TeXstudio / VS Code",
-        steps: [
-            {
-                title: "Install TeX Live",
-                commands: [
-                    "sudo apt-get update",
-                    "sudo apt-get install texlive-full",
-                ],
-            },
-            {
-                title: "Install Editor (pilih salah satu)",
-                commands: [
-                    "# TeXstudio",
-                    "sudo apt-get install texstudio",
-                    "",
-                    "# VS Code",
-                    "sudo snap install code --classic",
-                ],
-            },
-            {
-                title: "Clone Template",
-                commands: [
-                    "git clone <url-repository-template>",
-                    "cd <nama-folder-template>",
-                ],
-            },
-            {
-                title: "Compile",
-                commands: ["cd Project/", "./compile.sh"],
-                notes: "Script compile.sh akan menghasilkan laporan.pdf secara otomatis.",
-            },
-        ],
-    },
-    overleaf: {
-        editor: "Browser (tanpa instalasi)",
-        steps: [
-            {
-                title: "Download Template",
-                notes:
-                    "Unduh file ZIP template dari tombol Download di halaman Template.",
-            },
-            {
-                title: "Upload ke Overleaf",
-                notes:
-                    'Login ke Overleaf, klik New Project → Upload Project, lalu upload file ZIP yang sudah didownload.',
-                link: { label: "Buka Overleaf →", url: "https://www.overleaf.com" },
-            },
-            {
-                title: "Set Main Document",
-                notes:
-                    "Di panel kiri Overleaf, klik kanan laporan.tex lalu pilih Set as Main File.",
-            },
-            {
-                title: "Compile",
-                notes:
-                    "Klik tombol Compile (hijau) di pojok kiri atas untuk melihat hasilnya.",
-            },
-        ],
-    },
-};
-
-function CodeBlock({ lines }: { lines: string[] }) {
-    const [copied, setCopied] = useState(false);
-
-    const handleCopy = () => {
-        const text = lines.filter((l) => !l.startsWith("#") && l !== "").join("\n");
-        navigator.clipboard.writeText(text);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
-
-    return (
-        <div className="relative rounded-xl bg-muted/60 border border-border mt-3 group">
-            <button
-                onClick={handleCopy}
-                className="absolute top-3 right-3 p-1.5 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
-                title="Copy perintah"
-            >
-                {copied ? (
-                    <Check className="h-3.5 w-3.5 text-primary" />
-                ) : (
-                    <Copy className="h-3.5 w-3.5" />
-                )}
-            </button>
-            <pre className="text-sm p-4 pr-10 overflow-x-auto font-mono leading-relaxed">
-                {lines.map((line, i) =>
-                    line.startsWith("#") ? (
-                        <span key={i} className="text-muted-foreground/60 block">
-                            {line}
-                            {"\n"}
-                        </span>
-                    ) : line === "" ? (
-                        <span key={i} className="block">
-                            {"\n"}
-                        </span>
-                    ) : (
-                        <span key={i} className="text-primary block">
-                            {line}
-                            {"\n"}
-                        </span>
-                    )
-                )}
-            </pre>
-        </div>
-    );
 }
 
 export default function PanduanInstall() {
@@ -272,8 +76,8 @@ export default function PanduanInstall() {
                                 key={id}
                                 onClick={() => setActiveOS(id)}
                                 className={`flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-sm font-medium transition-all border ${activeOS === id
-                                    ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
-                                    : "border-border text-muted-foreground hover:bg-secondary hover:text-foreground hover:border-primary/30"
+                                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                                        : "border-border text-muted-foreground hover:bg-secondary hover:text-foreground hover:border-primary/30"
                                     }`}
                             >
                                 <Icon className="h-4 w-4 shrink-0" />

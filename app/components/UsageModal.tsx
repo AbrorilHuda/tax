@@ -1,154 +1,13 @@
-"use client";
-
 import { useState } from "react";
-import { X, Monitor, Apple, Terminal, Globe, Copy, Check } from "lucide-react";
+import { X, Copy, Check } from "lucide-react";
 import { Button } from "~/components/ui/button";
-
-type OS = "windows" | "macos" | "linux" | "overleaf";
-
-const osOptions: { id: OS; label: string; icon: React.ElementType }[] = [
-  { id: "windows", label: "Windows", icon: Monitor },
-  { id: "macos", label: "macOS", icon: Apple },
-  { id: "linux", label: "Linux", icon: Terminal },
-  { id: "overleaf", label: "Overleaf", icon: Globe },
-];
-
-interface Step {
-  title: string;
-  commands?: string[];
-  notes?: string;
-  link?: { label: string; url: string };
-}
-
-const guide: Record<OS, { steps: Step[] }> = {
-  windows: {
-    steps: [
-      {
-        title: "Install MikTeX",
-        notes: 'Pilih "For All Users" dan aktifkan opsi "Always install missing packages".',
-        link: { label: "Download MikTeX", url: "https://miktex.org/download" },
-      },
-      {
-        title: "Install TeXstudio",
-        link: { label: "Download TeXstudio", url: "https://www.texstudio.org/" },
-      },
-      {
-        title: "Update MikTeX",
-        notes: "Buka MikTeX Console, lalu klik Check for updates.",
-      },
-      {
-        title: "Buka & Compile Template",
-        notes: "Clone/unduh repositori, buka laporan.tex di TeXstudio, lalu klik Build & View.",
-      },
-    ],
-  },
-  macos: {
-    steps: [
-      {
-        title: "Install MacTeX",
-        commands: ["brew install --cask mactex"],
-        link: { label: "Atau download manual", url: "https://www.tug.org/mactex/" },
-      },
-      {
-        title: "Install VS Code + LaTeX Workshop",
-        notes: "Buka VS Code, cari ekstensi LaTeX Workshop dan install.",
-        link: { label: "Download VS Code", url: "https://code.visualstudio.com/" },
-      },
-      {
-        title: "Compile Template",
-        commands: ["cd Project/", "./compile.sh"],
-        notes: "Atau gunakan Ctrl+Alt+B di dalam VS Code.",
-      },
-    ],
-  },
-  linux: {
-    steps: [
-      {
-        title: "Install TeX Live",
-        commands: ["sudo apt-get update", "sudo apt-get install texlive-full"],
-      },
-      {
-        title: "Install Editor (pilih salah satu)",
-        commands: [
-          "# TeXstudio",
-          "sudo apt-get install texstudio",
-          "",
-          "# VS Code",
-          "sudo snap install code --classic",
-        ],
-      },
-      {
-        title: "Clone & Compile",
-        commands: [
-          "git clone [repository-url]",
-          "cd Project/",
-          "./compile.sh",
-        ],
-      },
-    ],
-  },
-  overleaf: {
-    steps: [
-      {
-        title: "Download Template",
-        notes: "Unduh file ZIP template dari repositori GitHub.",
-      },
-      {
-        title: "Upload ke Overleaf",
-        notes: 'Login ke Overleaf, klik "New Project" → "Upload Project", lalu upload file ZIP.',
-        link: { label: "Buka Overleaf", url: "https://www.overleaf.com" },
-      },
-      {
-        title: "Set Main Document",
-        notes: "Di menu Overleaf, set main document ke laporan.tex.",
-      },
-      {
-        title: "Compile",
-        notes: "Klik tombol Compile (hijau) untuk melihat hasilnya.",
-      },
-    ],
-  },
-};
+import { CodeBlock } from "~/components/CodeBlock";
+import { osOptions, guide, type OS } from "~/lib/guide-data";
 
 interface UsageModalProps {
   open: boolean;
   onClose: () => void;
   templateTitle: string;
-}
-
-function CodeBlock({ lines }: { lines: string[] }) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(lines.join("\n"));
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <div className="relative rounded-lg bg-muted/60 border border-border mt-2 group">
-      <button
-        onClick={handleCopy}
-        className="absolute top-2 right-2 p-1.5 rounded-md hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
-        title="Copy"
-      >
-        {copied ? <Check className="h-3.5 w-3.5 text-primary" /> : <Copy className="h-3.5 w-3.5" />}
-      </button>
-      <pre className="text-xs p-4 pr-10 overflow-x-auto font-mono leading-relaxed">
-        {lines.filter((l) => l !== "").map((line, i) =>
-          line.startsWith("#") ? (
-            <span key={i} className="text-muted-foreground block">
-              {line}{"\n"}
-            </span>
-          ) : (
-            <span key={i} className="text-primary block">
-              {line}{"\n"}
-            </span>
-          )
-        )}
-      </pre>
-    </div>
-  );
 }
 
 export default function UsageModal({ open, onClose, templateTitle }: UsageModalProps) {
@@ -180,6 +39,7 @@ export default function UsageModal({ open, onClose, templateTitle }: UsageModalP
           <button
             onClick={onClose}
             className="rounded-lg p-1.5 hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Tutup modal"
           >
             <X className="h-5 w-5" />
           </button>
@@ -191,11 +51,10 @@ export default function UsageModal({ open, onClose, templateTitle }: UsageModalP
             <button
               key={id}
               onClick={() => setActiveOS(id)}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
-                activeOS === id
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all ${activeOS === id
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-              }`}
+                }`}
             >
               <Icon className="h-3.5 w-3.5" />
               {label}
