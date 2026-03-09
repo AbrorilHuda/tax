@@ -52,6 +52,19 @@ export default function PanduanInstall() {
                 </div>
             </div>
 
+            {/* Tab nav */}
+            <div className="mx-auto max-w-4xl px-4 sm:px-6 flex gap-1 pb-0">
+                <span className="px-4 py-2 text-xs font-medium text-foreground border-b-2 border-primary transition-all cursor-default">
+                    Instalasi
+                </span>
+                <Link
+                    to="/panduan/penulisan"
+                    className="px-4 py-2 text-xs font-medium text-muted-foreground hover:text-foreground border-b-2 border-transparent hover:border-border/50 transition-all"
+                >
+                    Penulisan
+                </Link>
+            </div>
+
             <div className="mx-auto max-w-4xl px-4 sm:px-6 py-8 sm:py-12 space-y-8 sm:space-y-10">
                 {/* Header */}
                 <div className="space-y-2 sm:space-y-3">
@@ -76,8 +89,8 @@ export default function PanduanInstall() {
                                 key={id}
                                 onClick={() => setActiveOS(id)}
                                 className={`flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-sm font-medium transition-all border ${activeOS === id
-                                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
-                                        : "border-border text-muted-foreground hover:bg-secondary hover:text-foreground hover:border-primary/30"
+                                    ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                                    : "border-border text-muted-foreground hover:bg-secondary hover:text-foreground hover:border-primary/30"
                                     }`}
                             >
                                 <Icon className="h-4 w-4 shrink-0" />

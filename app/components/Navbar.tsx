@@ -77,7 +77,7 @@ export function Navbar() {
           {/* Logo */}
           <a href="/" className="flex items-center gap-2 group">
             <div className="relative">
-              <Zap className="h-6 w-6 text-primary transition-transform group-hover:scale-110 group-hover:rotate-12" />
+              <Zap className="h-6 w-6 text-primary transition-all duration-300 ease-out-quart group-hover:scale-110 group-hover:rotate-12" />
               <div className="absolute inset-0 h-6 w-6 animate-pulse rounded-full bg-primary/20 blur-sm" />
             </div>
             <span className="text-lg font-bold">
@@ -96,14 +96,14 @@ export function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`relative px-4 py-2 text-sm transition-colors group ${isActive
+                  className={`relative px-4 py-2 text-sm transition-colors duration-200 group ${isActive
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
                   {link.label}
                   <span
-                    className={`absolute bottom-0 left-1/2 h-0.5 -translate-x-1/2 bg-primary transition-all duration-300 ${isActive ? "w-1/2" : "w-0 group-hover:w-1/2"
+                    className={`absolute bottom-0 left-1/2 h-0.5 -translate-x-1/2 bg-primary transition-all duration-300 ease-out-quart ${isActive ? "w-1/2" : "w-0 group-hover:w-1/2"
                       }`}
                   />
                 </a>
@@ -155,9 +155,9 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="text-2xl font-semibold text-foreground transition-all hover:text-primary hover:scale-110"
+              className={`text-2xl font-semibold text-foreground transition-all duration-500 ease-out-quart hover:text-primary hover:scale-110 ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{
-                animationDelay: `${index * 50}ms`,
+                transitionDelay: `${isOpen ? 100 + index * 50 : 0}ms`,
               }}
             >
               {link.label}

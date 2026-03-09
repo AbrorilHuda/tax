@@ -32,6 +32,15 @@ const templates = [
     repoUrl: null,
     downloadUrl: null,
   },
+  {
+    icon: FileText,
+    title: "Laporan Praktikum",
+    desc: "Template lengkap laporan praktikum untuk mahasiswa Informatika UNIRA. Sesuai format resmi dengan struktur modular.",
+    tags: ["LaTeX", "Praktikum", "TI UNIRA"],
+    status: "coming_soon" as const,
+    repoUrl: null,
+    downloadUrl: null,
+  },
 ];
 
 const TemplatesSection = () => {
@@ -55,15 +64,14 @@ const TemplatesSection = () => {
             <div
               key={t.title}
               className={`rounded-xl border bg-card p-8 space-y-5 transition-all duration-300
-                hover:-translate-y-1.5 hover:shadow-xl ${
-                  t.status === "available"
-                    ? "border-primary/30 glow-soft hover:border-primary/50 hover:shadow-primary/10"
-                    : "border-border opacity-75 hover:opacity-90"
+                hover:-translate-y-1.5 hover:shadow-xl ${t.status === "available"
+                  ? "border-primary/30 glow-soft hover:border-primary/50 hover:shadow-primary/10"
+                  : "border-border opacity-75 hover:opacity-90"
                 }`}
               style={{
                 opacity: inView ? (t.status === "available" ? 1 : 0.75) : 0,
                 transform: inView ? "translateY(0)" : "translateY(24px)",
-                transition: `opacity 0.5s ease ${i * 120}ms, transform 0.5s ease ${i * 120}ms, border-color 0.2s, box-shadow 0.2s, translate 0.2s`,
+                transition: `opacity 0.7s var(--ease-out-quart) ${i * 120}ms, transform 0.7s var(--ease-out-quart) ${i * 120}ms, border-color 0.2s, box-shadow 0.2s, translate 0.2s`,
               }}
             >
               <div className="flex items-start justify-between">

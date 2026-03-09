@@ -4,5 +4,6 @@ export default [
     index("routes/home.tsx"),
     route("panduan", "routes/panduan.tsx"),
     route("panduan/install", "routes/panduan.install.tsx"),
+    route("panduan/penulisan", "routes/panduan.penulisan.tsx"),
     route("api/feedback", "routes/api.feedback.ts"),
 ] satisfies RouteConfig;

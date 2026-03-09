@@ -65,7 +65,7 @@ const FeaturesSection = () => {
               style={{
                 opacity: inView ? 1 : 0,
                 transform: inView ? "translateY(0)" : "translateY(24px)",
-                transition: `opacity 0.5s ease ${i * 80}ms, transform 0.5s ease ${i * 80}ms, border-color 0.2s, box-shadow 0.2s, translate 0.2s`,
+                transition: `opacity 0.7s var(--ease-out-quart) ${i * 80}ms, transform 0.7s var(--ease-out-quart) ${i * 80}ms, border-color 0.2s, box-shadow 0.2s, translate 0.2s`,
               }}
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/20">

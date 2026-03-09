@@ -3,7 +3,6 @@ import { Zap } from "lucide-react";
 const Footer = () => {
   return (
     <footer className="relative border-t border-border py-12 px-6 overflow-hidden">
-      {/* Subtle top gradient */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-primary/4 to-transparent pointer-events-none" />
 

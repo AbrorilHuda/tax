@@ -51,7 +51,7 @@ const HeroSection = () => {
           {/* Badge */}
           <div
             className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-4 py-1.5 text-xs text-muted-foreground opacity-0"
-            style={{ animation: "fade-in-up 0.6s ease forwards 0.1s" }}
+            style={{ animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.1s" }}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
             by DCN UNIRA
@@ -60,14 +60,14 @@ const HeroSection = () => {
           {/* Heading */}
           <h1
             className="text-5xl lg:text-7xl font-bold leading-tight opacity-0"
-            style={{ animation: "fade-in-up 0.7s ease forwards 0.25s" }}
+            style={{ animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.25s" }}
           >
             <span
               className="text-gradient"
               style={{
                 backgroundSize: "200% 200%",
                 animation:
-                  "fade-in-up 0.7s ease forwards 0.25s, shimmer-gradient 6s ease infinite 1s",
+                  "fade-in-up 0.8s var(--ease-out-quart) forwards 0.25s, shimmer-gradient 6s ease infinite 1s",
               }}
             >
               TAX
@@ -81,7 +81,7 @@ const HeroSection = () => {
           {/* Description */}
           <p
             className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed opacity-0"
-            style={{ animation: "fade-in-up 0.7s ease forwards 0.4s" }}
+            style={{ animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.4s" }}
           >
             Koleksi template LaTeX akademik untuk mahasiswa Informatika
             Universitas Madura. Mulai dari laporan Kerja Praktik hingga Skripsi,
@@ -91,7 +91,7 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div
             className="flex flex-wrap justify-center gap-4 opacity-0"
-            style={{ animation: "fade-in-up 0.7s ease forwards 0.55s" }}
+            style={{ animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.55s" }}
           >
             <a href="#templates">
               <Button variant="hero" size="lg" className="gap-2">
@@ -115,9 +115,9 @@ const HeroSection = () => {
           <div
             ref={statsRef}
             className="flex justify-center gap-8 pt-8 border-t border-border mt-8 opacity-0"
-            style={{ animation: "fade-in-up 0.7s ease forwards 0.7s" }}
+            style={{ animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.7s" }}
           >
-            <AnimatedStat target={2} label="Template" triggered={statsInView} />
+            <AnimatedStat target={3} label="Template" triggered={statsInView} />
             <AnimatedStat target={null} label="Berbasis" triggered={statsInView} />
           </div>
         </div>

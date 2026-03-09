@@ -3,9 +3,6 @@ import type { Route } from "./+types/api.feedback";
 
 const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL ?? "";
 
-/** Apps Script mengembalikan 302 redirect setelah menerima POST.
- *  Redirect pertama diikuti dengan GET (HTTP standar untuk 302),
- *  karena Apps Script memproses POST sebelum redirect. */
 async function appsScriptFetch(
     url: string,
     init?: RequestInit,
@@ -16,7 +13,6 @@ async function appsScriptFetch(
     if (res.status >= 300 && res.status < 400) {
         const location = res.headers.get("location");
         if (!location) throw new Error("Redirect tanpa Location header");
-        // Setelah redirect, gunakan GET tanpa body (standar 302)
         return appsScriptFetch(location, { method: "GET" }, depth + 1);
     }
     return res;
@@ -31,7 +27,6 @@ async function parseJson(res: Response): Promise<unknown> {
     }
 }
 
-// ── GET /api/feedback ─────────────────────────────────────────────────────────
 export async function loader(_args: Route.LoaderArgs) {
     if (!APPS_SCRIPT_URL) {
         return data(
@@ -58,7 +53,6 @@ export async function loader(_args: Route.LoaderArgs) {
     }
 }
 
-// ── POST /api/feedback ────────────────────────────────────────────────────────
 export async function action({ request }: Route.ActionArgs) {
     if (!APPS_SCRIPT_URL) {
         return data(
@@ -75,15 +69,13 @@ export async function action({ request }: Route.ActionArgs) {
             return data({ ok: false, error: "Pesan tidak boleh kosong." }, { status: 400 });
         }
 
-        // Kirim ke Apps Script — ia akan memproses doPost lalu redirect 302.
-        // Jika tidak ada exception, data sudah tersimpan di Sheet.
+
         await appsScriptFetch(APPS_SCRIPT_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ nama: (body.nama ?? "").trim(), pesan }),
         });
 
-        // Data tersimpan — langsung kembalikan success tanpa parsing redirect response
         return data({ ok: true });
     } catch (err) {
         console.error("[api/feedback POST]", err);
