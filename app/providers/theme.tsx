@@ -29,7 +29,7 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(defaultTheme);
   const [mounted, setMounted] = useState(false);
 
-  // 🎯 Hanya run di client
+  // Hanya run di client
   useEffect(() => {
     setMounted(true);
 

@@ -26,7 +26,9 @@ function AnimatedStat({
   return (
     <div className="text-center">
       <p className="text-2xl font-bold text-foreground tabular-nums">
-        {isNumber ? `${value}${suffix}` : (
+        {isNumber ? (
+          `${value}${suffix}`
+        ) : (
           <span className="text-gradient">LaTeX</span>
         )}
       </p>
@@ -47,11 +49,12 @@ const HeroSection = () => {
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 py-20">
         <div className="max-w-3xl mx-auto text-center space-y-8">
-
           {/* Badge */}
           <div
             className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-4 py-1.5 text-xs text-muted-foreground opacity-0"
-            style={{ animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.1s" }}
+            style={{
+              animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.1s",
+            }}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
             by DCN UNIRA
@@ -60,7 +63,9 @@ const HeroSection = () => {
           {/* Heading */}
           <h1
             className="text-5xl lg:text-7xl font-bold leading-tight opacity-0"
-            style={{ animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.25s" }}
+            style={{
+              animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.25s",
+            }}
           >
             <span
               className="text-gradient"
@@ -73,15 +78,44 @@ const HeroSection = () => {
               TAX
             </span>
             <br />
-            <span className="text-foreground text-3xl lg:text-4xl font-medium">
-              Template Academic Xpress
+            <span className="text-foreground text-3xl lg:text-4xl font-medium font-gloria">
+              Template Academic{" "}
+              <span className="relative inline-block">
+                {/* Circle SVG hand-drawn */}
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  viewBox="0 0 100 40"
+                  preserveAspectRatio="none"
+                  overflow="visible"
+                >
+                  <ellipse
+                    cx="50"
+                    cy="50%"
+                    rx="52"
+                    ry="55%"
+                    fill="none"
+                    stroke="#ef4444"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    pathLength="1"
+                    style={{
+                      strokeDasharray: "1",
+                      strokeDashoffset: "1",
+                      animation: "draw-circle 0.6s ease-out forwards 1.2s",
+                    }}
+                  />
+                </svg>
+                Xpress
+              </span>
             </span>
           </h1>
 
           {/* Description */}
           <p
             className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed opacity-0"
-            style={{ animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.4s" }}
+            style={{
+              animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.4s",
+            }}
           >
             Koleksi template LaTeX akademik untuk mahasiswa Informatika
             Universitas Madura. Mulai dari laporan Kerja Praktik hingga Skripsi,
@@ -91,7 +125,9 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div
             className="flex flex-wrap justify-center gap-4 opacity-0"
-            style={{ animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.55s" }}
+            style={{
+              animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.55s",
+            }}
           >
             <a href="#templates">
               <Button variant="hero" size="lg" className="gap-2">
@@ -115,10 +151,16 @@ const HeroSection = () => {
           <div
             ref={statsRef}
             className="flex justify-center gap-8 pt-8 border-t border-border mt-8 opacity-0"
-            style={{ animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.7s" }}
+            style={{
+              animation: "fade-in-up 0.8s var(--ease-out-quart) forwards 0.7s",
+            }}
           >
             <AnimatedStat target={3} label="Template" triggered={statsInView} />
-            <AnimatedStat target={null} label="Berbasis" triggered={statsInView} />
+            <AnimatedStat
+              target={null}
+              label="Berbasis"
+              triggered={statsInView}
+            />
           </div>
         </div>
       </div>

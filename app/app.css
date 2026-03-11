@@ -1,13 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/inter";
 
 @custom-variant dark (&:is(.dark *));
-
-/* ============================================
-   THEME CONFIGURATION - DARK MODE DEFAULT
-   ============================================ */
 
 @theme {
   /* Font Families */
@@ -17,6 +13,7 @@
   --font-mono:
     "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     monospace;
+  --font-gloria: "Gloria Hallelujah", cursive;
 
   /* Custom Colors dari v3 (Dark Theme) */
   --color-background: hsl(240 10% 6%);
@@ -158,6 +155,12 @@
 /* ============================================
    ANIMATIONS
    ============================================ */
+@keyframes draw-circle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -195,7 +198,6 @@
 }
 
 @keyframes badge-pulse {
-
   0%,
   100% {
     box-shadow: 0 0 0 0 hsl(270 95% 65% / 0.4);
@@ -218,16 +220,17 @@
   }
 }
 
-
 /* ============================================
    UTILITIES (Dari v3)
    ============================================ */
 @layer utilities {
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg,
-        hsl(270 95% 70%),
-        hsl(200 95% 60%));
+    background-image: linear-gradient(
+      135deg,
+      hsl(270 95% 70%),
+      hsl(200 95% 60%)
+    );
   }
 
   /* Glow Effects */
@@ -243,9 +246,11 @@
 
   /* Hero Gradient Background */
   .hero-gradient {
-    background: radial-gradient(ellipse 80% 50% at 50% -20%,
-        hsl(270 95% 65% / 0.15),
-        transparent);
+    background: radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      hsl(270 95% 65% / 0.15),
+      transparent
+    );
   }
 
   /* Code Block Styling */
@@ -281,7 +286,6 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: hsl(270 95% 65% / 0.5);
   }
-
 
   .nav-link-underline {
     position: relative;
